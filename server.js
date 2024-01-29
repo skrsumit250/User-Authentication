@@ -18,7 +18,11 @@ app.post('/login',async(req,res)=>{
     else{
         const matchpassword=await bcrypt.compare(req.body.password,check.password);
         if(matchpassword){
-            res.send("Logged in.....");
+            const userdata={
+                username: check.username,
+                password: check.password,
+            }
+            res.send(`Logged in. User Data: ${JSON.stringify(userdata)}`);
         }
         else{
             res.render("login",{text:"Wrong Password Try Again"});
